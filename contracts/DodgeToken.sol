@@ -16,4 +16,13 @@ contract MyToken is ERC20Capped,ERC20Burnable {
         blockReward = reward * (10 ** decimals());
     }
 
+    function setReward(uint reward) public onlyOwner {
+        blockReward = reward * (10 ** decimals());
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner,"only owner can call this function ")
+        _;
+    }
+
 }
