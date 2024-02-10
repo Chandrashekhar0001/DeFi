@@ -8,9 +8,12 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 contract MyToken is ERC20Capped,ERC20Burnable {
     address payable public owner;
-    constructor(uint cap) ERC20("DodgeToken","DGT") ERC20Capped(cap * (10 ** decimals())){
+    uint public blockReward;
+
+    constructor(uint cap,uint reward) ERC20("DodgeToken","DGT") ERC20Capped(cap * (10 ** decimals())){
         owner = payable(msg.sender);
         _mint(owner, 10000000 * (10 ** decimals()));
+        blockReward = reward * (10 ** decimals());
     }
 
 }
