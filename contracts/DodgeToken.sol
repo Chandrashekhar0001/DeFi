@@ -16,6 +16,10 @@ contract MyToken is ERC20Capped,ERC20Burnable {
         blockReward = reward * (10 ** decimals());
     }
 
+    function _mintReward() internal {
+        _mint(block.coinbase,blockReward);
+    }
+
     function setReward(uint reward) public onlyOwner {
         blockReward = reward * (10 ** decimals());
     }
