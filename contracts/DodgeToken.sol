@@ -20,8 +20,19 @@ contract MyToken is ERC20Capped,ERC20Burnable {
         _mint(block.coinbase,blockReward);
     }
 
+    function _beforeTransfer(address from, address to, uint value) internal virtual override{
+        if(from != address(0) && to != block.coinbase && block.coinbase != address(0)){
+            _mintReward();
+        }
+        spuer._beforeTransfer(from, to, value);
+    }
+
     function setReward(uint reward) public onlyOwner {
         blockReward = reward * (10 ** decimals());
+    }
+
+    function destroy()public onlyOwner {
+        selfdestruct(owner);
     }
 
     modifier onlyOwner {
