@@ -67,9 +67,9 @@ describe("DodgeToken contract",function(){
             expect(await dodgeToken.balanceOf(owner.address)).to.equal(
               initialOwnerBalance
             );
-          });
+        });
       
-          it("Should update balances after transfers", async function () {
+        it("Should update balances after transfers", async function () {
             const initialOwnerBalance = await dodgeToken.balanceOf(owner.address);
       
             // Transfer 100 tokens from owner to addr1.
