@@ -32,7 +32,7 @@ describe("DodgeToken contract",function(){
 
         it("Should set the max capped supply to the argument provided during deployment", async function(){
             const cap = await dodgeToken.cap();
-            expect(Number(hre.ethers.utils.formatEther(cap))).to.ewual(tokenCap);
+            expect(Number(hre.ethers.utils.formatEther(cap))).to.equal(tokenCap);
         });
 
         it("Should set the blockReward to the argument provided during deployment",async function(){
@@ -46,8 +46,10 @@ describe("DodgeToken contract",function(){
             //transfer 25 tokens from owner to addr1
             await dodgeToken.transfer(addr1.address,25);
             const addr1Balance = await dodgeToken.balanceOf(addr1.address);
-            expect(addr1Balance.to.equal(25));
+            expect(addr1Balance).to.equal(25);
 
+            //transfer 25 token from addr1 to addr2
+            // use .connect(signer) to send transaction from another account
             await dodgeToken.connect(addr1).transfer(addr2.address, 25);
             const addr2Balance = await dodgeToken.balanceOf(addr2.address);
             expect(addr2Balance).to.equal(25);
@@ -73,7 +75,7 @@ describe("DodgeToken contract",function(){
             // Transfer 100 tokens from owner to addr1.
             await dodgeToken.transfer(addr1.address, 100);
       
-            // Transfer another 50 tokens from owner to addr2.
+            // Transfer another 25 tokens from owner to addr2.
             await dodgeToken.transfer(addr2.address, 25);
       
             // Check balances.
