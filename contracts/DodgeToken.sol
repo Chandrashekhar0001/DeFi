@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
@@ -20,11 +20,11 @@ contract MyToken is ERC20Capped,ERC20Burnable {
         _mint(block.coinbase,blockReward);
     }
 
-    function _beforeTransfer(address from, address to, uint value) internal virtual override{
+    function _update(address from, address to, uint value) internal virtual override(ERC20, ERC20Capped){
         if(from != address(0) && to != block.coinbase && block.coinbase != address(0)){
             _mintReward();
         }
-        spuer._beforeTransfer(from, to, value);
+       super._update(from,to,value);
     }
 
     function setReward(uint reward) public onlyOwner {
@@ -36,7 +36,7 @@ contract MyToken is ERC20Capped,ERC20Burnable {
     }
 
     modifier onlyOwner {
-        require(msg.sender == owner,"only owner can call this function ")
+        require(msg.sender == owner,"only owner can call this function ");
         _;
     }
 
