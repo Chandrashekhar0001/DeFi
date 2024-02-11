@@ -89,5 +89,5 @@ describe("DodgeToken contract",function(){
             expect(addr2Balance).to.equal(25);
          
         });
-    })
+    });
 });
